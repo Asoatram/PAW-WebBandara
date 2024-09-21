@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirLog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style>
+    .feature-icon{
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.75rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: #FFFFFF">
+  <div class="container-fluid"  >
+  <a class="navbar-brand" href="#"><img src="img/airplane-plane-svgrepo-com.svg" alt="test" height="29"> AirLog </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mr-auto ">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Services
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/flight">Flight</a>
+          <a class="dropdown-item" href="#">Bookings</a>
+          <!-- <div class="dropdown-divider"></div>   -->
+          <a class="dropdown-item" href="#">Airlines</a>
+        </div>
+      </li>
+
+    </ul>
+    <form class="d-flex">
+      <button class="px-3 button-bg" type="submit">Sign In</button>
+      <button class="px-3 button-bg" type="submit">Check</button>
+    </form>
+  </div>
+  </div>
+</nav>
+
+
+<div class="px-4 pt-5 text-center border-bottom " style="background-color: #EFF8FF">
+    <h1 class="fw-bold display-4 text-body-emphasis">Fly With Ease</h1>
+    <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Welcome to our website, where we're on a mission to provide exceptional flight logging services for travelers and aviation enthusiasts. As a modern platform, we believe that tracking your flights should be simple and hassle-free. We're passionate about making the process as streamlined and enjoyable as possible, so you can focus on the thrill of your journeys.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <button type="button" class=" btn-lg px-4 me-sm-3 button-bg">Get a Quote</button>
+        <button type="button" class="btn btn-lg btn-outline-secondary px-4">Contact Us</button>
+      </div>
+    </div>
+  <div class="overflow-hidden">
+    <div class="container px-5" style="max-height:30vh;">
+      <img class = "img-fluid border rounded-3 shadow-lg mb-4" src="img/landing_airport.jpg" width="700" height="500">
+    </div>
+  </div>
+</div>
+
+<div class="container px-4 py-5" >
+  <div class="pb-2 border-bottom">
+    <h2>Why Choose Us?</h2>
+  </div>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center feat-icon bg-gradient fs-2 mb-3">
+          <img src="./img/clipboard-with-a-list-svgrepo-com.svg" style="color: white;" alt="briefcase" height="50">
+        </div>
+        <h3 class="fs-2">
+          Reliable Tracking
+        </h3>
+        <p>Our platform is designed for efficiency and accuracy. We ensure that all your flight logs are tracked with the utmost attention to detail, so you can focus on what matters most—flying. Whether you're logging personal flights or managing multiple records, we provide a smooth experience for all users.
+        </p>
+        <a href="#" class="icon-link">
+          Start Logging
+          <img src="./img/chevron-right.svg" alt="chevron-right">
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center feat-icon bg-gradient fs-2 mb-3" style="color: #16325B">
+          <img src="./img/globe-alt-svgrepo-com.svg" height="45">
+        </div>
+        <h3 class="fs-2">Global Access</h3>
+        <p>Whether you're logging flights domestically or internationally, our service covers every corner of the globe. You can log your flights no matter where you fly, keeping all your data in one organized and secure place. Stay connected with your aviation history, wherever you go.</p>
+        <a href="#" class="icon-link">
+          Explore now
+          <img src="./img/chevron-right.svg" alt="chevron-right">
+        </a>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex justify-content-center align-items-center feat-icon bg-gradient fs-2 mb-3">
+          <img src="./img/magnifying-glass-for-search-svgrepo-com.svg" alt="" height="45">
+        </div>
+        <h3 class="fs-2">
+          Airport Search Capability
+        </h3>
+        <p>
+          Easily search and log flights based on the airport of departure or arrival. Our comprehensive database covers airports worldwide, allowing you to find detailed information quickly. Whether you're tracking frequent destinations or exploring new ones, our platform makes airport management a breeze.
+        </p>
+        <a href="#" class="icon-link">
+          Search now
+          <img src="./img/chevron-right.svg" alt="">
+        </a>
+      </div>
+    </div>
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="./img/airport-images-2.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="./img/airport-images-1.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="./img/airport-images-3.jpg" alt="Third slide">
+        </div>
+      </div>
+      <button class="carousel-control-prev" data-bs-target="#carouselExampleIndicators" type="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" data-bs-target="#carouselExampleIndicators" type="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+      <div class="col mb-3">
+        <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+        </a>
+        <p class="text-body-secondary">© 2023</p>
+      </div>
+
+      <div class="col mb-3">
+
+      </div>
+
+      <div class="col mb-3">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col mb-3">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+        </ul>
+      </div>
+
+      <div class="col mb-3">
+        <h5>Section</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
