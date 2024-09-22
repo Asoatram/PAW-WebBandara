@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
-mongoose.connect("mongodb+srv://User:GIjJ7tZFQLtikJ8K@cluster0.px122pi.mongodb.net/WebBandara")
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Is connected to the server,"))
     .catch(err => console.log(err));
 
