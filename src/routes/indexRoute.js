@@ -15,4 +15,4 @@ router.get('/signin', (req, res) => {
 router.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/public/signup/signup.html');
 })
-module.exports = router;
+    module.exports = router;

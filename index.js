@@ -1,12 +1,21 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs')
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const flightRoutes = require('./src/routes/flightRoutes');
+
+dotenv.config();
 
 const app = express();
 const port = 3001;
 
+mongoose.connect("mongodb+srv://User:GIjJ7tZFQLtikJ8K@cluster0.px122pi.mongodb.net/WebBandara")
+    .then(() => console.log("Is connected to the server,"))
+    .catch(err => console.log(err));
 
 
+app.use('/', flightRoutes);
 
 function serveFile(filePath, res) {
     fs.readFile(filePath, (err, data) => {

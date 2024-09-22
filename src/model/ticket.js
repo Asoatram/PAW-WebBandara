@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
     ticket_id: { type: Number, required: true },
-    flight_number: { type: String, required: true },
+    flight_number: { type: Number, required: true },
     origin: { type: String, required: true },
     destination: { type: String, required: true },
     name: { type: String, required: true },

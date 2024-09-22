@@ -1,12 +1,12 @@
 const express = require('express');
-const Flight = require('./models/Flight'); // Ganti dengan path yang sesuai
+const Flight = require('../model/flight'); // Ganti dengan path yang sesuai
 const router = express.Router();
 
 // Get all flights
 router.get('/api/flights/get', async (req, res) => {
     try {
-        const flights = await Flight.find();
-        res.status(200).send(flights);
+        var flights = await Flight.find({});
+        res.status(200).send({data : flights});
     } catch (error) {
         res.status(500).send(error);
     }
