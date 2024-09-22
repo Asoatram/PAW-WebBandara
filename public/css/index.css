@@ -11,6 +11,19 @@
     transition-duration: 0.2s;
 }
 
+.button-bg-outline:hover{
+    border-radius: 10px;
+    border: 1px solid #16325B;
+    background-color: #16325B;
+    color: white;
+    transition-duration: 0.2s;
+}
+.button-bg-outline{
+    border: 1px solid #16325B;
+    background-color: #EFF8FF;
+    color: black;
+}
+
 .feat-icon{
     color: #fff;
     background-color: #16325B;
