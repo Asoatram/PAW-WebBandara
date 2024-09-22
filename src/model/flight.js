@@ -1,6 +1,6 @@
-const mongoose=require('mongoose');
+const mongoose= require('mongoose');
 
-const flightSchema= {
+const flightSchema= new mongoose.Schema({
     flight_id:Number,
     flight_number:Number,
     departure_airport_code:String,
@@ -8,7 +8,7 @@ const flightSchema= {
     departure_date:Date,
     arrival_time:Date,
     flight_duration_hours:Number,
-}
+})
 
-const flight = mongoose.model('flight',flightSchema)
+const flight = mongoose.model('flight', flightSchema)
 module.exports = flight;
