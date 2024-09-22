@@ -1,11 +1,21 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs')
+const fs = require('fs');
+const mongoose = require('mongoose');
+const flightRoutes = require('./src/routes/flightRoutes.js');
+require('dotenv').config();
+
+
+mongoose.connect(process.env.MONGO_URI
+)
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error("MongoDB connection error: ", err));
 
 const app = express();
 const port = 3001;
 
-
+app.use(express.json())
+app.use('/', flightRoutes)
 
 
 function serveFile(filePath, res) {
