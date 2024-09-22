@@ -83,35 +83,21 @@
       <div class="row justify-content-center">
         <div class ="col-8 px-5">
           <div class="card mb-5">
-            <table class="table table-striped table-hover px-3">
+            <table id="flight_table" class="table table-striped table-hover px-3">
               <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
+                  <tr>
+                      <th scope="col">Flight Number</th>
+                      <th scope="col">Departure</th>
+                      <th scope="col">Arrival</th>
+                      <th scope="col">Departure Date</th>
+                      <th scope="col">Departure Time</th>
+                  </tr>
               </thead>
-              <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+              <tbody id="table_body">
+
               </tbody>
-            </table>
+          </table>
+          <button id="show_flights" class="btn btn-primary" onclick="getFlightJSON()">Show Flights</button>
             <a href="postflight.html" class="icon-link py-4 align-self-center">
               Is your flight not available?
             </a>
@@ -169,6 +155,7 @@
   </div>
 
 </div>
+<script src="../js/flight_table.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
