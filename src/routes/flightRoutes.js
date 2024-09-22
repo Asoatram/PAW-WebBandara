@@ -3,7 +3,7 @@ const Flight = require('./models/Flight'); // Ganti dengan path yang sesuai
 const router = express.Router();
 
 // Get all flights
-router.get('/flights', async (req, res) => {
+router.get('/api/flights/get', async (req, res) => {
     try {
         const flights = await Flight.find();
         res.status(200).send(flights);
@@ -13,7 +13,7 @@ router.get('/flights', async (req, res) => {
 });
 
 // Get a flight by ID
-router.get('/flights/:id', async (req, res) => {
+router.get('/api/flights/get/:id', async (req, res) => {
     try {
         const flight = await Flight.findById(req.params.id);
         if (!flight) {
