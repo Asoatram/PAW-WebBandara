@@ -75,8 +75,17 @@
       <div class="row justify-content-center">
         <div class="col-5" >
         <div class="input-group mb-4 mt-2">
-          <input type="text" class="form-control" placeholder="Enter airport code or name" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+          <input id="searchInput" type="text" class="form-control" placeholder="Enter airport code" aria-label="Recipient's username" aria-describedby="searchButton">
+          <button id="searchButton" class="btn btn-outline-secondary" type="button">Search</button>
+          <script>
+            var input = document.getElementById("searchInput");
+            input.addEventListener("keypress", function(event) {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("searchButton").click();
+              }
+            });
+            </script>
         </div>
         </div>
       </div>
@@ -99,18 +108,18 @@
               </tbody>
           </table>
             <div class="d-flex justify-content-between">
-              <button id="decrement-btn" class="btn button-bg-outline">
+              <button id="prevPage" class="btn button-bg-outline">
                 <img src="../img/chevron-left.svg" class="self-align-center"></img>
               </button>
               <p id= "counter">
                 1
               </p>
-              <button id="increment-btn" class="btn button-bg-outline">
+              <button id="nextPage" class="btn button-bg-outline">
                 <img src="../img/chevron-right.svg" class="self-align-center"></img>
               </button>
             </div>
 
-          <button id="show_flights" class="btn button-bg w-25 align-self-center" onclick="getFlightJSON()">Show Flights</button>
+
             <a href="postflight.html" class="icon-link py-4 align-self-center">
               Is your flight not available?
             </a>
