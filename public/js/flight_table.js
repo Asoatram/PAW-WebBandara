@@ -1,28 +1,35 @@
-function getFlightJSON() {
-    var page = document.getElementById('counter').textContent.trim();
-    var URI = `http://localhost:3001/api/flight/get/?page=${page}`;
+const counter = document.getElementById('counter');
+const incrementBtn = document.getElementById('nextPage');
+const decrementBtn = document.getElementById('prevPage');
+
+// Convert the counter to a number initially
+let count = parseInt(counter.textContent);
+
+// Function to fetch flight data
+function fetchFlightData() {
+    const page = count;
+    const searchValue = document.getElementById('searchInput').value.trim();
+    let URI = `http://localhost:3001/api/flight/get?page=${page}`;
+
+    // If searchValue is provided, append it to the URI
+    if (searchValue) {
+        URI += `&departure_airport_code=${searchValue}`;
+    }
+
+    // Fetch the data from the API
     fetch(URI)
-        .then((response) => {
-            console.log(response);
-            return response.json(); // Convert response to JSON
-        })
+        .then((response) => response.json()) // Convert response to JSON
         .then((objectData) => {
-            // Access the flight data inside the 'data' key
-            console.log(objectData);
-            let flightData = objectData || []; // Safely access the flights array
-            
-            // Check if flightData is actually an array
+            let flightData = objectData || [];
             if (!Array.isArray(flightData)) {
                 console.error("Expected 'data' to be an array but got:", typeof flightData);
                 return;
             }
 
-            console.log(flightData); // Log the flight data for verification
-
             let tableData = ""; // Initialize a string to hold table rows
 
             // Map through the flight data and create table rows dynamically
-            flightData.map((values) => {
+            flightData.forEach((values) => {
                 tableData += `
                     <tr>
                         <td>${values.flight_number}</td>
@@ -34,11 +41,36 @@ function getFlightJSON() {
                 `;
             });
 
-            // Insert the table rows into the tbody of the table
-            document.getElementById("table_body").innerHTML = tableData; // Ensure you're targeting the tbody
+            // Insert the generated rows into the table body
+            document.getElementById("table_body").innerHTML = tableData;
         })
         .catch((error) => {
-            console.error("Error fetching flight data:", error); // Error handling
+            console.error("Error fetching flight data:", error);
         });
 }
 
+// Function to increment the page number
+incrementBtn.addEventListener('click', () => {
+    count += 1;
+    counter.textContent = count; // Update the displayed value
+    fetchFlightData(); // Fetch new data
+});
+
+// Function to decrement the page number
+decrementBtn.addEventListener('click', () => {
+    if (count > 1) { // Prevent going below 1
+        count -= 1;
+        counter.textContent = count;
+        fetchFlightData(); // Fetch new data
+    }
+});
+
+// Search button event listener
+document.getElementById("searchButton").addEventListener("click", () => {
+    count = 1; // Reset to page 1 on search
+    counter.textContent = count; // Update the displayed value
+    fetchFlightData(); // Fetch data for the first page
+});
+
+// Load initial flight data
+window.onload = fetchFlightData;
