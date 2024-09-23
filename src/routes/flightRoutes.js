@@ -28,10 +28,12 @@ router.get('/api/flights/get/:id', async (req, res) => {
 module.exports = router;
 
 // Backend API endpoint to get flights with optional search
+
 router.get("/api/flight/get", async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const skip = (page - 1) * 5;
+        const limit = 5; // Number of flights per page
+        const skip = (page - 1) * limit;
 
         // Get the search parameter (departure_airport_code) if provided
         const { departure_airport_code } = req.query;
@@ -44,13 +46,19 @@ router.get("/api/flight/get", async (req, res) => {
         }
 
         // Fetch flights matching the query, with pagination
-        const flights = await Flight.find(query).skip(skip).limit(5);
+        const flights = await Flight.find(query).skip(skip).limit(limit);
+        
+        // Count total flights matching the query
+        const totalFlights = await Flight.countDocuments(query);
+
+        // Determine if there is a next page and return 1 or 0
+        const hasNextPage = totalFlights > skip + limit ? 1 : 0;
 
         if (flights.length === 0) {
-            return res.status(404).send("No flights found");
+            return res.status(404).send({ message: "No flights found", hasNextPage });
         }
 
-        res.status(200).send(flights);
+        res.status(200).send({ flights, hasNextPage });
     } catch (error) {
         res.status(500).send({ error: "Server Error", details: error.message });
     }

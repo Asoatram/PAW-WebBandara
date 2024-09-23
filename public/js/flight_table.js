@@ -2,52 +2,76 @@ const counter = document.getElementById('counter');
 const incrementBtn = document.getElementById('nextPage');
 const decrementBtn = document.getElementById('prevPage');
 
-// Convert the counter to a number initially
+
 let count = parseInt(counter.textContent);
+let searchValue = '';
+
+// Function to handle "No data found" message
+function nodata() {
+    document.getElementById('noResultsMessage').style.display = 'block';
+    document.getElementById('searchTerm').textContent = searchValue;
+
+    document.getElementById('table_body').innerHTML = "";
+    document.getElementById('nextPage').style.display = 'none';
+    document.getElementById('prevPage').style.display = 'none';
+    document.getElementById('counter').style.display = 'none';
+    document.querySelector('thead').style.display = 'none';
+}
 
 // Function to fetch flight data
 function fetchFlightData() {
     const page = count;
-    const searchValue = document.getElementById('searchInput').value.trim();
+    searchValue = document.getElementById('searchInput').value.trim();
     let URI = `http://localhost:3001/api/flight/get?page=${page}`;
 
-    // If searchValue is provided, append it to the URI
     if (searchValue) {
         URI += `&departure_airport_code=${searchValue}`;
     }
 
-    // Fetch the data from the API
     fetch(URI)
-        .then((response) => response.json()) // Convert response to JSON
+        .then((response) => response.json())
         .then((objectData) => {
-            let flightData = objectData || [];
-            if (!Array.isArray(flightData)) {
-                console.error("Expected 'data' to be an array but got:", typeof flightData);
-                return;
+            // Assuming objectData now includes flights and hasNextPage
+            const flightData = objectData.flights || [];
+            const hasNextPage = objectData.hasNextPage;
+
+            if (flightData.length === 0) {
+                nodata();
+                return; // Exit the function
+            } else {
+                document.getElementById('noResultsMessage').style.display = 'none';
+                document.getElementById('nextPage').style.display = 'inline-block';
+                document.getElementById('prevPage').style.display = 'inline-block';
+                document.getElementById('counter').style.display = 'inline-block';
+                document.querySelector('thead').style.display = 'table-header-group';
+
+                // Disable the "Previous" button if on the first page
+                document.getElementById('prevPage').disabled = count === 1;
+
+                // Disable the "Next" button if there is no next page
+                document.getElementById('nextPage').disabled = !hasNextPage; // Disable if no next page
             }
 
-            let tableData = ""; // Initialize a string to hold table rows
-
-            // Map through the flight data and create table rows dynamically
+            let tableData = "";
             flightData.forEach((values) => {
                 tableData += `
                     <tr>
                         <td>${values.flight_number}</td>
                         <td>${values.departure_airport_code}</td>
                         <td>${values.arrival_airport_code}</td>
-                        <td>${values.departure_date.substring(0, 10)}</td> <!-- Formatting the date -->
+                        <td>${values.departure_date.substring(0, 10)}</td>
                         <td>${values.departure_time}</td>
                     </tr>
                 `;
             });
 
-            // Insert the generated rows into the table body
             document.getElementById("table_body").innerHTML = tableData;
         })
-        .catch((error) => {
-            console.error("Error fetching flight data:", error);
+        .catch(() => {
+            nodata(); // Call nodata function if the fetch fails
         });
 }
+
 
 // Function to increment the page number
 incrementBtn.addEventListener('click', () => {

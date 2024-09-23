@@ -28,3 +28,33 @@
     color: #fff;
     background-color: #16325B;
 }
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #666;
+}
+
+.no-results h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.no-results p {
+    font-size: 14px;
+    color: #666;
+}
+
+.counter-container {
+    display: flex;
+    justify-content: center; /* Horizontally centers */
+    align-items: center;     /* Vertically centers */
+    height: 100vh;           /* Full viewport height (or adjust as needed) */
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
