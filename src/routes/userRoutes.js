@@ -1,6 +1,7 @@
 const express = require('express');
-const User = require('./models/User'); // Ganti dengan path yang sesuai
+const User = require('../model/User'); // Ganti dengan path yang sesuai
 const router = express.Router();
+const jwt = require('jsonwebtoken')
 
 // Create a new user
 router.post('/api/user/post', async (req, res) => {
@@ -17,6 +18,7 @@ router.post('/api/user/post', async (req, res) => {
 router.get('/api/user/get', async (req, res) => {
     try {
         const users = await User.find();
+        console.log(users)
         res.status(200).send(users);
     } catch (error) {
         res.status(500).send(error);
@@ -61,5 +63,38 @@ router.delete('/api/user/delete/:id', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+const getUser =    
+
+router.post('/api/login', async (req, res) => {
+    const Useremail = req.body.email;
+    try {
+
+        const users = await User.findOne({"email" :  Useremail}).exec();
+        const user = { "email": Useremail}
+
+        const AccessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn :"24h"})
+        console.log(AccessToken)
+        res.cookie("token", AccessToken);
+        res.status(200).json({AccessToken: AccessToken});
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}); 
+
+function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+
+        
+    jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+        if (err) return res.sendStatus(403)
+        req.user = user
+
+    })
+}
+
+
 
 module.exports = router;
