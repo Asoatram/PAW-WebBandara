@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
-    ticket_id: { type: Number, required: true },
-    flight_number: { type: Number, required: true },
-    origin: { type: String, required: true },
-    destination: { type: String, required: true },
-    name: { type: String, required: true },
-    seat_number: { type: String, required: true },
-    class: { type: String, required: true },
-    price: { type: Number, required: true },
-    purchase_date: { type: Date, required: true }
-}, {collection: 'tickets'});
+    ticket_id: Number, 
+    flight_number: Number,
+    origin: String, 
+    destination: String, 
+    name: String, 
+    seat_number: String, 
+    class: String, 
+    price: Number, 
+    purchase_date: Date,
+});
 
-const Ticket = mongoose.model('Ticket', ticketSchema);
+const Ticket = mongoose.model('tickets', ticketSchema);
 module.exports = Ticket;

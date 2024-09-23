@@ -62,6 +62,18 @@ app.get('/flight/post', (req, res) => {
     serveFile(filePath, res);
 });
 
+app.post('/tickets/post', async (req, res) => {
+    try {
+        const ticket = new Ticket(req.body);
+        await ticket.save();
+        res.status(201).send(ticket);
+    } catch (error) {
+        console.error("Error saving ticket:", error);
+        res.status(400).send(error);
+    }
+});
+
+
 app.use(express.json(),(req,res) => {
     res.status(404).send('<h1>Not Found</h1>');
 })
