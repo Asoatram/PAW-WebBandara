@@ -36,6 +36,21 @@ router.get('/api/tickets/get/:id', async (req, res) => {
     }
 });
 
+router.get('/api/ticket/get', async (req, res) => {
+    const names= req.query.name;
+    try{
+        const ticket = await Ticket.find({name : { $regex: names, $options: 'i' }})
+        console.log(names)
+        if(!ticket || ticket.length === 0) {
+            return res.status(404).send();
+        }
+        res.status(200).send(ticket);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+})
+
 // Update a ticket by ID
 router.patch('/api/tickets/update/:id', async (req, res) => {
     try {
