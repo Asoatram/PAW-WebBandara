@@ -15,8 +15,10 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Is connected to the server,"))
     .catch(err => console.log(err));
 
-app.use('/', ticketRoutes)
+app.use(express.json())
+
 app.use('/', flightRoutes);
+app.use('/', ticketRoutes);
 
 function serveFile(filePath, res) {
     fs.readFile(filePath, (err, data) => {
@@ -55,6 +57,18 @@ app.get('/flight/post', (req, res) => {
     const filePath = path.join(__dirname, 'public/flight', `post${fileName}.html`);
     serveFile(filePath, res);
 });
+
+app.post('/tickets/post', async (req, res) => {
+    try {
+        const ticket = new Ticket(req.body);
+        await ticket.save();
+        res.status(201).send(ticket);
+    } catch (error) {
+        console.error("Error saving ticket:", error);
+        res.status(400).send(error);
+    }
+});
+
 
 app.use((req,res) => {
     res.status(404).send('<h1>Not Found</h1>');
