@@ -25,4 +25,22 @@ router.get('/api/flights/get/:id', async (req, res) => {
     }
 });
 
+// Get airport by pagination
+router.get('/api/flight/get', async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * 5;
+
+        const flight = await Flight.find({}).skip(skip).limit(5);
+
+        if (flight.length === 0) {
+            return res.status(404).send("No flights found");
+        }
+
+        res.status(200).send(flight);
+    } catch (error) {
+        res.status(500).send({ error: "Server Error", details: error.message });
+    }
+});
+
 module.exports = router;

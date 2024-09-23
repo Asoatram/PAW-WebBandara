@@ -4,6 +4,7 @@ const fs = require('fs')
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const flightRoutes = require('./src/routes/flightRoutes');
+const ticketRoutes = require('./src/routes/ticketRoutes');
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Is connected to the server,"))
     .catch(err => console.log(err));
 
-
+app.use('/', ticketRoutes)
 app.use('/', flightRoutes);
 
 function serveFile(filePath, res) {

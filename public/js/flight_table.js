@@ -1,11 +1,15 @@
 function getFlightJSON() {
-    fetch("http://localhost:8081/api/flights/get")
+    var page = document.getElementById('counter').textContent.trim();
+    var URI = `http://localhost:3001/api/flight/get/?page=${page}`;
+    fetch(URI)
         .then((response) => {
+            console.log(response);
             return response.json(); // Convert response to JSON
         })
         .then((objectData) => {
             // Access the flight data inside the 'data' key
-            let flightData = objectData.data || []; // Safely access the flights array
+            console.log(objectData);
+            let flightData = objectData || []; // Safely access the flights array
             
             // Check if flightData is actually an array
             if (!Array.isArray(flightData)) {
@@ -38,5 +42,3 @@ function getFlightJSON() {
         });
 }
 
-// Call the function when the window loads
-window.onload = getFlightJSON;

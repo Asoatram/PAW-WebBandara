@@ -1,5 +1,5 @@
 const express = require('express');
-const Ticket = require('./models/Ticket'); // Ganti dengan path yang sesuai
+const Ticket = require('../model/ticket'); // Ganti dengan path yang sesuai
 const router = express.Router();
 
 // Create a new ticket

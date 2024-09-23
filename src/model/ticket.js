@@ -10,7 +10,7 @@ const ticketSchema = new mongoose.Schema({
     class: { type: String, required: true },
     price: { type: Number, required: true },
     purchase_date: { type: Date, required: true }
-});
+}, {collection: 'tickets'});
 
 const Ticket = mongoose.model('Ticket', ticketSchema);
 module.exports = Ticket;
