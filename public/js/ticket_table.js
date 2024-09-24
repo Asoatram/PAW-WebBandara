@@ -1,62 +1,98 @@
 const counter = document.getElementById('counter');
-const incrementBtn = document.getElementById('nextPage');
-const decrementBtn = document.getElementById('prevPage');
 
-// Convert the counter to a number initially
 let count = parseInt(counter.textContent);
+
+// Function to handle "No data found" message
+function nodata() {
+    document.getElementById('noResultsMessage').style.display = 'block';
+    document.getElementById('table_body').innerHTML = "";
+    document.getElementById('nextPage2').style.display = 'none';
+    document.getElementById('prevPage2').style.display = 'none';
+    document.getElementById('counter').style.display = 'none';
+    document.querySelector('thead').style.display = 'none';
+}
 
 // Function to fetch flight data
 function fetchTicketData() {
     const page = count;
-    const searchValue = document.getElementById('searchInput').value.trim();
-    let URI = `http://localhost:3001/api/ticket/get?`;
+    
+    // Collect input values from the form
+    const name = document.getElementById('getNameInput').value.trim();
+    const origin = document.getElementById('getDepartureAirport').value;
+    const destination = document.getElementById('getArrivalAirport').value;
 
-    // If searchValue is provided, append it to the URI
-    if (searchValue) {
-        URI += `&name=${searchValue}`;
+    // Construct the base URI with the page number
+    let URI = `http://localhost:3001/api/ticket/get?page=${page}`;
+
+    // Append query parameters if they are provided
+    if (name) {
+        URI += `&name=${encodeURIComponent(name)}`;
+    }
+    if (origin) {
+        URI += `&origin=${encodeURIComponent(origin)}`;
+    }
+    if (destination) {
+        URI += `&destination=${encodeURIComponent(destination)}`;
     }
 
-    // Fetch the data from the API
+    // Fetch the ticket data based on the search criteria
     fetch(URI)
-        .then((response) => response.json()) // Convert response to JSON
+        .then((response) => response.json())
         .then((objectData) => {
-            let flightData = objectData || [];
-            if (!Array.isArray(flightData)) {
-                console.error("Expected 'data' to be an array but got:", typeof flightData);
-                return;
+            // Assuming objectData includes tickets and hasNextPage
+            const ticketData = objectData.tickets || [];
+            const hasNextPage = objectData.hasNextPage;
+
+            if (ticketData.length === 0) {
+                nodata();
+                return; // Exit the function if no data
+            } else {
+                document.getElementById('noResultsMessage').style.display = 'none';
+                document.getElementById('nextPage2').style.display = 'inline-block';
+                document.getElementById('prevPage2').style.display = 'inline-block';
+                document.getElementById('counter').style.display = 'inline-block';
+                document.querySelector('thead').style.display = 'table-header-group';
+
+                // Disable the "Previous" button if on the first page
+                document.getElementById('prevPage2').disabled = count === 1;
+
+                // Disable the "Next" button if there is no next page
+                document.getElementById('nextPage2').disabled = !hasNextPage;
             }
 
-            let tableData = ""; // Initialize a string to hold table rows
-
-            // Map through the flight data and create table rows dynamically
-            flightData.forEach((values) => {
+            // Populate table with ticket data
+            let tableData = "";
+            ticketData.forEach((values) => {
                 tableData += `
                     <tr>
-                        <td>${values.seat_number}</td>
+                        <td>${values.ticket_id}</td>
+                        <td>${values.flight_number}</td>
                         <td>${values.name}</td>
+                        <td>${values.seat_number}</td>
+                        <td>${values.class}</td>
                         <td>${values.origin}</td>
-                        <td>${values.destination}</td> <!-- Formatting the date -->
+                        <td>${values.destination}</td>
                     </tr>
                 `;
             });
 
-            // Insert the generated rows into the table body
+            // Insert table rows into the table body
             document.getElementById("table_body").innerHTML = tableData;
         })
-        .catch((error) => {
-            console.error("Error fetching flight data:", error);
+        .catch(() => {
+            nodata(); // Call nodata function if the fetch fails
         });
 }
 
 // Function to increment the page number
-incrementBtn.addEventListener('click', () => {
+document.getElementById('nextPage2').addEventListener('click', () => {
     count += 1;
     counter.textContent = count; // Update the displayed value
     fetchTicketData(); // Fetch new data
 });
 
 // Function to decrement the page number
-decrementBtn.addEventListener('click', () => {
+document.getElementById('prevPage2').addEventListener('click', () => {
     if (count > 1) { // Prevent going below 1
         count -= 1;
         counter.textContent = count;
@@ -65,7 +101,7 @@ decrementBtn.addEventListener('click', () => {
 });
 
 // Search button event listener
-document.getElementById("searchButton").addEventListener("click", () => {
+document.getElementById("submitBTN").addEventListener("click", () => {
     count = 1; // Reset to page 1 on search
     counter.textContent = count; // Update the displayed value
     fetchTicketData(); // Fetch data for the first page

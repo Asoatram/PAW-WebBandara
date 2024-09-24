@@ -36,21 +36,6 @@ router.get('/api/tickets/get/:id', async (req, res) => {
     }
 });
 
-router.get('/api/ticket/get', async (req, res) => {
-    const names= req.query.name;
-    try{
-        const ticket = await Ticket.find({name : { $regex: names, $options: 'i' }})
-        console.log(names)
-        if(!ticket || ticket.length === 0) {
-            return res.status(404).send();
-        }
-        res.status(200).send(ticket);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-
-})
-
 // Update a ticket by ID
 router.patch('/api/tickets/update/:id', async (req, res) => {
     try {
@@ -74,6 +59,49 @@ router.delete('/api/tickets/delete/:id', async (req, res) => {
         res.status(200).send(ticket);
     } catch (error) {
         res.status(500).send(error);
+    }
+});
+
+router.get("/api/ticket/get", async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5; // Define the number of records per page
+        const skip = (page - 1) * limit;
+
+        // Extract query parameters for filtering
+        const {name, origin, destination} = req.query;
+
+        // Initialize the query object
+        let query = {};
+
+        // Apply filters only if values are provided
+        if (name) {
+            query.name = new RegExp(name, "i"); // "i" makes it case-insensitive
+        }
+
+        if (origin) {
+            query.origin = new RegExp(origin, "i");  // Exact match for origin
+        }
+
+        if (destination) {
+            query.destination = new RegExp(destination, "i");  // Exact match for destination
+        }
+
+        // Fetch the filtered tickets from the database, with pagination
+        const tickets = await Ticket.find(query).skip(skip).limit(limit);
+        const totalTickets = await Ticket.countDocuments(query);
+
+        // Determine if there is a next page
+        const hasNextPage = totalTickets > skip + limit ? 1 : 0;
+
+        if (tickets.length === 0) {
+            return res.status(404).send({ message: "No tickets found", hasNextPage });
+        }
+
+        // Return the tickets and pagination info
+        res.status(200).send({ tickets, hasNextPage });
+    } catch (error) {
+        res.status(500).send({ error: "Server Error", details: error.message });
     }
 });
 
