@@ -63,3 +63,15 @@ router.get("/api/flight/get", async (req, res) => {
         res.status(500).send({ error: "Server Error", details: error.message });
     }
 });
+
+router.delete('/api/flight/delete/:id', async (req, res) => {
+    try {
+        const flights = await Flight.findByIdAndDelete(req.params.id)
+        if (!flights) {
+            return res.status(404).send();
+        }
+        return res.status(200).send("Deleted");
+    }catch (error){
+        res.status(500).send(error);
+    }
+})

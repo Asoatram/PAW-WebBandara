@@ -65,13 +65,21 @@ function fetchTicketData() {
             ticketData.forEach((values) => {
                 tableData += `
                     <tr>
-                        <td>${values.ticket_id}</td>
+                        <td class="">${values.ticket_id}</td>
                         <td>${values.flight_number}</td>
                         <td>${values.name}</td>
                         <td>${values.seat_number}</td>
                         <td>${values.class}</td>
                         <td>${values.origin}</td>
                         <td>${values.destination}</td>
+                        <td>
+                          <button class="btn button-bg-outline" id="edit-button${values.ticket_id}">
+                            <img src="../img/pencil-svgrepo-com.svg" width="16px">
+                          </button>
+                          <button class="btn button-bg-outline" >
+                            <img src="../img/eraser-svgrepo-com.svg" width="16px">
+                          </button>
+                        </td>
                     </tr>
                 `;
             });
@@ -91,6 +99,8 @@ document.getElementById('nextPage2').addEventListener('click', () => {
     fetchTicketData(); // Fetch new data
 });
 
+
+
 // Function to decrement the page number
 document.getElementById('prevPage2').addEventListener('click', () => {
     if (count > 1) { // Prevent going below 1
@@ -107,5 +117,8 @@ document.getElementById("submitBTN").addEventListener("click", () => {
     fetchTicketData(); // Fetch data for the first page
 });
 
+
 // Load initial flight data
 window.onload = fetchTicketData;
+
+
