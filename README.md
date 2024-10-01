@@ -9,8 +9,9 @@
 | Muhamad Daffa Azfa Rabbani                 | 22/503970/TK/55101 |
 
 
-WebApp Setup Guide
-Overview
+# WebApp Setup Guide
+
+## Overview
 This is a WebBandara. It is built using MongoDB for the database and Express.js for the backend. This guide will walk you through setting up the project on your local machine.
 
 Prerequisites
@@ -62,7 +63,6 @@ Folder Structure
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/
-│   └── utils/
 ├── .env
 ├── .gitignore
 ├── package.json
@@ -74,7 +74,6 @@ src/models/: Contains the database models.
 
 src/routes/: Defines the application routes.
 
-src/utils/: Utility functions.
 
 Technologies Used
 - Node.js
